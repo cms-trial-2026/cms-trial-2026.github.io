@@ -12,3 +12,5 @@ docker compose build
 docker compose run --rm app npm install
 docker compose up          # http://localhost:4321/
 ```
+
+<!-- ルールの確認用 -->
