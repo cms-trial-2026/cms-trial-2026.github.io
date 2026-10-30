@@ -1,0 +1,14 @@
+---
+import Base from '../../../layouts/Base.astro';
+import NewsArticle from '../../../components/NewsArticle.astro';
+import { publishedNews, slugOf } from '../../../lib/news';
+export async function getStaticPaths() {
+  const items = await publishedNews('en');
+  return items.map((entry) => ({ params: { slug: slugOf(entry) }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const other = 'en' === 'ja' ? '/en/news/' : '/news/';
+---
+<Base title={entry.data.title} lang="en" alt={`${other}${slugOf(entry)}/`}>
+  <NewsArticle entry={entry} lang="en" />
+</Base>

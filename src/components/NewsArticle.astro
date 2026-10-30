@@ -1,0 +1,21 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import { fmt, type Lang } from '../lib/news';
+interface Props { entry: CollectionEntry<'news'>; lang: Lang }
+const { entry, lang } = Astro.props;
+const { Content } = await render(entry);
+const back = lang === 'ja' ? { href: '/news/', label: 'お知らせ一覧へ' } : { href: '/en/news/', label: 'Back to News' };
+---
+<article>
+  <p class="meta"><time>{fmt(entry.data.publishDate, lang)}</time>{entry.data.category && <span> · {entry.data.category}</span>}</p>
+  <h1>{entry.data.title}</h1>
+  {entry.data.image && <img class="hero" src={entry.data.image} alt="" />}
+  <div class="body"><Content /></div>
+  <p><a href={back.href}>← {back.label}</a></p>
+</article>
+<style>
+  .meta { color: var(--muted); font-size: 14px; margin: 0; }
+  h1 { font-size: 28px; line-height: 1.4; margin: 8px 0 20px; }
+  .hero { width:100%; max-height:420px; object-fit:cover; border-radius:10px; }
+  .body :global(img) { max-width:100%; height:auto; }
+</style>

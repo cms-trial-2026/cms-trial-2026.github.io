@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import NewsList from '../../components/NewsList.astro';
+import { publishedNews } from '../../lib/news';
+const items = (await publishedNews('en')).slice(0, 3);
+---
+<Base title="Home" lang="en" alt="/">
+  <section class="hero"><h1>Sample Exhibition 2027</h1><p>June 5 – November 20, 2027 · Sample Hall</p></section>
+  <h2>Latest news</h2>
+  <NewsList items={items} lang="en" />
+  <p class="more"><a href="news/">All news →</a></p>
+</Base>
+<style>
+  .hero { background: linear-gradient(135deg, #2b59c3, #6b3fa0); color:#fff; border-radius:14px; padding: 56px 28px; margin-bottom: 36px; }
+  .hero h1 { margin:0 0 8px; font-size: 34px; }
+  .hero p { margin:0; opacity:.9; }
+  h2 { font-size:20px; }
+  .more { text-align:right; }
+</style>

@@ -1,0 +1,36 @@
+# Sveltia CMS の設定。ログインは「アクセストークンを使用してログイン」を使う。
+backend:
+  name: github
+  repo: cms-trial-2026/cms-trial-2026.github.io
+  branch: main
+
+publish_mode: editorial_workflow   # 下書き → レビュー中 → 公開可（承認の流れ）
+
+site_url: https://cms-trial-2026.github.io/
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+i18n:
+  structure: multiple_folders
+  locales: [ja, en]
+  default_locale: ja
+
+collections:
+  - name: news
+    label: お知らせ
+    label_singular: お知らせ
+    folder: src/content/news
+    create: true
+    slug: '{{year}}{{month}}{{day}}-{{slug}}'
+    i18n: true
+    summary: '{{title}}'
+    sortable_fields: [publishDate, title]
+    fields:
+      - { name: title, label: タイトル, widget: string, i18n: true }
+      - { name: publishDate, label: 公開日時, widget: datetime, i18n: duplicate, output_utc: true, hint: '日本時間で入れます。未来の日時にすると、その時刻のあとの定時の更新で公開されます（時刻は目安）' }
+      - { name: unpublishDate, label: 公開終了日時, widget: datetime, required: false, output_utc: true, i18n: duplicate }
+      - { name: draft, label: サイトに出さない, widget: boolean, default: false, i18n: duplicate }
+      - { name: category, label: カテゴリー, widget: select, options: [お知らせ, チケット, グッズ, 混雑状況], required: false, i18n: duplicate }
+      - { name: image, label: 画像, widget: image, required: false, i18n: duplicate }
+      - { name: summary, label: 概要, widget: text, required: false, i18n: true }
+      - { name: body, label: 本文, widget: markdown, i18n: true }

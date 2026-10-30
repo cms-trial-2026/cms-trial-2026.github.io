@@ -1,0 +1,10 @@
+---
+import Base from '../../../layouts/Base.astro';
+import NewsList from '../../../components/NewsList.astro';
+import { publishedNews } from '../../../lib/news';
+const items = await publishedNews('en');
+---
+<Base title="News" lang="en" alt="/news/">
+  <h1>News</h1>
+  <NewsList items={items} lang="en" />
+</Base>

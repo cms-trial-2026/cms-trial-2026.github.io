@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import NewsList from '../components/NewsList.astro';
+import { publishedNews } from '../lib/news';
+const items = (await publishedNews('ja')).slice(0, 3);
+---
+<Base title="トップ" lang="ja" alt="/en/">
+  <section class="hero"><h1>サンプル展示会 2027</h1><p>2027年6月5日〜11月20日　サンプル会場</p></section>
+  <h2>最新のお知らせ</h2>
+  <NewsList items={items} lang="ja" />
+  <p class="more"><a href="news/">お知らせ一覧 →</a></p>
+</Base>
+<style>
+  .hero { background: linear-gradient(135deg, #2b59c3, #6b3fa0); color:#fff; border-radius:14px; padding: 56px 28px; margin-bottom: 36px; }
+  .hero h1 { margin:0 0 8px; font-size: 34px; }
+  .hero p { margin:0; opacity:.9; }
+  h2 { font-size:20px; }
+  .more { text-align:right; }
+</style>
